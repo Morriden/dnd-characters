@@ -26,10 +26,10 @@ async function run() {
     await Promise.all(
       characters.map(character => {
         return client.query(`
-                    INSERT INTO characters (name, level, alignment, is_alive, description)
-                    VALUES ($1, $2, $3, $4, $5);
+                    INSERT INTO characters (name, level, alignment, is_alive, description, owner_id)
+                    VALUES ($1, $2, $3, $4, $5, $6);
                 `,
-        [character.name, character.level, character.alignment, character.is_alive, character.description]);
+        [character.name, character.level, character.alignment, character.is_alive, character.description, user.id]);
       })
     );
     
