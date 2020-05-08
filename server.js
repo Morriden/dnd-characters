@@ -24,7 +24,7 @@ app.get('/characters/:id', async(req, res) => {
   res.json(data.rows);
 });
 
-app.post('/characters/', async(req, res) => {
+app.post('/characters', async(req, res) => {
   console.log(req.body);
   const data = await client.query(
     `insert into characters (name, level, alignment, is_alive, description, owner_id)
@@ -32,7 +32,7 @@ app.post('/characters/', async(req, res) => {
     returning *`,
     [req.body.name, req.body.level, req.body.alignment, req.body.is_alive, req.body.description, 1]
   );
-  res.json(data.rows);
+  res.json(data.rows[0]);
 });
 
 app.listen(PORT, () => {
