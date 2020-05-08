@@ -6,11 +6,19 @@ const client = require('./lib/client');
 client.connect();
 
 const app = require('./lib/app');
-
 const PORT = process.env.PORT || 7890;
 
 app.get('/characters', async(req, res) => {
   const data = await client.query('SELECT * from characters');
+
+  res.json(data.rows);
+});
+
+app.get('/characters/:id', async(req, res) => {
+  const data = await client.query(`
+  SELECT * from characters
+  WHERE id=${req.params.id};
+  `);
 
   res.json(data.rows);
 });
