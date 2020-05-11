@@ -8,17 +8,31 @@ client.connect();
 const app = require('./lib/app');
 const PORT = process.env.PORT || 7890;
 
+app.get('/alignment', async(req, res) => {
+  const data = await client.query('SELECT * FROM alignment');
+
+  res.json(data.rows);
+});
+
 app.get('/characters', async(req, res) => {
-  const data = await client.query('SELECT * from characters');
+  const data = await client.query(`
+      SELECT characters.id, characters.level, alignment.alignment, characters.is_alive, characters.description
+      from characters
+      join alignment
+      on characters.alignment_id = alignment.id
+    `);
 
   res.json(data.rows);
 });
 
 app.get('/characters/:id', async(req, res) => {
-  const id = req.params.id;
   const data = await client.query(`
-  SELECT * from characters WHERE id=$1`,
-  [id]
+    SELECT characters.id, characters.level, alignment.alignment, characters.is_alive, characters.description
+    from characters
+    join alignment
+    on characters.alignment_id = alignment.id
+    WHERE character.id=$1
+    `, [req.params.id]
   );
 
   res.json(data.rows);
