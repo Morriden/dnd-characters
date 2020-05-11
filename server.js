@@ -17,8 +17,8 @@ app.get('/alignment', async(req, res) => {
 app.get('/characters', async(req, res) => {
   const data = await client.query(`
       SELECT characters.id, characters.name, characters.level, alignment.alignment, characters.is_alive, characters.description
-      from characters
-      join alignment
+      FROM characters
+      JOIN alignment
       on characters.alignment_id = alignment.id
     `);
 
@@ -28,14 +28,13 @@ app.get('/characters', async(req, res) => {
 app.get('/characters/:id', async(req, res) => {
   const data = await client.query(`
     SELECT characters.id, characters.name, characters.level, alignment.alignment, characters.is_alive, characters.description
-    from characters
-    join alignment
+    FROM characters
+    JOIN alignment
     on characters.alignment_id = alignment.id
-    WHERE character.id=$1
-    `, [req.params.id]
-  );
+    WHERE characters.id = $1
+    `, [req.params.id]);
 
-  res.json(data.rows);
+  res.json(data.rows[0]);
 });
 
 app.post('/characters', async(req, res) => {
