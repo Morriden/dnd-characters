@@ -16,7 +16,7 @@ async function run() {
                     email VARCHAR(256) NOT NULL,
                     hash VARCHAR(512) NOT NULL
                 );
-                CREATE TABLE alignments (
+                CREATE TABLE alignment (
                     id SERIAL PRIMARY KEY,
                     alignment VARCHAR(256) NOT NULL
                 );           
@@ -24,7 +24,7 @@ async function run() {
                     id SERIAL PRIMARY KEY NOT NULL,
                     name VARCHAR(512) NOT NULL,
                     level INTEGER NOT NULL,
-                    alignment_id INTEGER NOT NULL REFERENCES ALIGNMENTS(id),
+                    alignment_id INTEGER NOT NULL REFERENCES ALIGNMENT(id),
                     is_alive BOOLEAN NOT NULL,
                     description VARCHAR(512) NOT NULL,
                     owner_id INTEGER NOT NULL REFERENCES users(id)

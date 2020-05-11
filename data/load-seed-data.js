@@ -14,7 +14,7 @@ async function run() {
     await Promise.all(
       alignmentData.map(alignment => {
         return client.query(`
-            INSERT INTO alignments (alignment)
+            INSERT INTO alignment (alignment)
             VALUES ($1)
             RETURNING *;
         `,
