@@ -38,9 +38,10 @@ app.get('/characters/:id', async(req, res) => {
 });
 
 app.post('/characters', async(req, res) => {
-  console.log(req.body);
   const data = await client.query(
-    `insert into characters (name, level, alignment, is_alive, description, owner_id)
+
+    //Error here with alignment_id not being the word and number. Possibly JOIN AND INSERT IN SAME LINE?
+    `INSERT INTO characters (name, level, alignment_id, is_alive, description, owner_id)
     values ($1, $2, $3, $4, $5, $6)
     returning *`,
     [req.body.name, req.body.level, req.body.alignment, req.body.is_alive, req.body.description, 1]
