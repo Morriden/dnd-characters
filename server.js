@@ -48,6 +48,14 @@ app.post('/characters', async(req, res) => {
   res.json(data.rows[0]);
 });
 
+app.delete('/characters/:id', async(req, res) => {
+  const result = await client.query(`
+    DELETE FROM characters
+    WHERE characters.id = $1
+  `, [req.params.id]);
+  res.json(result.rows[0]);
+});
+
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console
   console.log(`Started on ${PORT}`);
