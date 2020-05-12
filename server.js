@@ -52,7 +52,7 @@ app.post('/characters', async(req, res) => {
 app.delete('/characters/:id', async(req, res) => {
   const result = await client.query(`
     DELETE FROM characters
-    WHERE id = $1
+    WHERE characters.id = $1
   `, [req.params.id]);
   res.json(result.rows[0]);
 });
