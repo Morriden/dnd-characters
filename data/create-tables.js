@@ -15,12 +15,16 @@ async function run() {
                     id SERIAL PRIMARY KEY,
                     email VARCHAR(256) NOT NULL,
                     hash VARCHAR(512) NOT NULL
+                );
+                CREATE TABLE alignment (
+                    id SERIAL PRIMARY KEY,
+                    alignment VARCHAR(256) NOT NULL
                 );           
                 CREATE TABLE characters (
                     id SERIAL PRIMARY KEY NOT NULL,
                     name VARCHAR(512) NOT NULL,
                     level INTEGER NOT NULL,
-                    alignment VARCHAR(512) NOT NULL,
+                    alignment_id INTEGER NOT NULL REFERENCES ALIGNMENT(id),
                     is_alive BOOLEAN NOT NULL,
                     description VARCHAR(512) NOT NULL,
                     owner_id INTEGER NOT NULL REFERENCES users(id)

@@ -9,6 +9,7 @@ async function run() {
     
     await client.query(`
             DROP TABLE IF EXISTS users CASCADE;
+            DROP TABLE IF EXISTS alignment CASCADE;
             DROP TABLE IF EXISTS characters;
         `);
 
